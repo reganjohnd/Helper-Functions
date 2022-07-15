@@ -5,10 +5,24 @@ from dateutil.relativedelta import relativedelta
 
 ## filter for value val in column col in dataframe df 
 def filter_(df, col, val):
+    '''
+    @desc filter a data frame based on one value for one column
+    @param df: dataframe object
+    @param col: Column which will be filtered
+    @param val: Value which will be filtered in @param col
+    @return dataframe @param df with column @param col filtered to value @param val
+    '''
     return df.loc[df[col] == val]
 
 ## filter on multiple columns for a single value per column - dictionary of {column:value} pairs
 def filter_more_cols(df, dict: dict):
+    '''
+    @desc filter a data frame based on one value for multiple columns
+    @param df: dataframe object
+    @param dict: dictionary of columns and keys and a single value for each column t be filtered on
+    @return dataframe @param df with column @param col filtered to value @param val
+    '''
+
     cols = list(dict.keys())
     vals = list(dict.values())
     length = len(dict)
@@ -48,6 +62,11 @@ def filter_more_values(df, col, val: list, neg = False):
             for i in range(1, length):
                 val1 = val1.loc[val1[col] != val[i]]
         return val1
+
+def filter_all(df, dict:dict):
+    for i, v in enumerate(dict):
+        df = filter_more_values(df, list(dict)[i], dict.get(v))
+    return df
 
 def date_delta(date:any, date_format, delta):
     if type(date) == str:
