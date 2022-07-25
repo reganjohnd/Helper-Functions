@@ -78,10 +78,6 @@ def date_delta(date:any, date_format, delta):
 def month_list(start, end, format):
     return pd.date_range(start, end, freq='MS').strftime(format).tolist()
 
-def create_dir(dir, file, type):
+def create_dir(dir:str, file:str):
     dir = dir.replace(r"\\", r"\\") + "\\" + file
-    if type == 'csv':
-        dir = dir + ".csv"
-    elif type == 'excel':
-        dir = dir + '.xlsx'
     return dir
