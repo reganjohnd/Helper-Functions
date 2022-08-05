@@ -3,6 +3,8 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import boto3
 import io
+from dotenv import load_dotenv
+import os
 
 
 ## filter for value val in column col in dataframe df 
@@ -83,6 +85,14 @@ def month_list(start, end, format):
 def create_dir(dir:str, file:str):
     dir = dir.replace(r"\\", r"\\") + "\\" + file
     return dir
+
+def create_env_variables():
+    load_dotenv(override=True)
+    access_key_id = os.environ.get('ACCESS_KEY_ID')
+    private_access_key = os.environ.get('PRIVATE_ACCESS_KEY')
+    var = {'id':access_key_id,
+           'key':private_access_key}
+    return var
 
 def df_from_s3(file_name: str, bucket: str, access_key_id:str, private_access_key:str, server_region:str):
 
